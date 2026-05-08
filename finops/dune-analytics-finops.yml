@@ -5,62 +5,73 @@ provider: Dune Analytics
 providerId: dune-analytics
 created: '2026-05-08'
 modified: '2026-05-08'
-reconciled: false
+reconciled: true
 tags:
-- Web3
-- Analytics
-- SQL
-- Dashboards
-- Blockchain
-- FinOps
-- Cost Management
-- FOCUS
-description: FOCUS-aligned FinOps placeholder for Dune Analytics. Pipeline will replace with real billing details.
-notes: Initial scaffold — billing model has not yet been reconciled.
+  - Web3
+  - Analytics
+  - FinOps
+  - FOCUS
+description: >-
+  FinOps view of Dune. Subscription tier governs monthly credit allowance; credits are consumed
+  by query executions, data exports, and writes. Plan-tier export rate (e.g. 20 vs 2 credits/MB)
+  materially changes effective cost. Failed executions still count.
 sources:
-- https://dune.com/
-- https://focus.finops.org/focus-specification/v1-3/
+  - https://docs.dune.com/api-reference/overview/billing
+  - https://focus.finops.org/focus-specification/v1-3/
 alignedWith:
   framework: FinOps Foundation Framework
   frameworkUrl: https://www.finops.org/framework/
   dataSpec: FOCUS
   dataSpecVersion: '1.3'
   dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
-publisherName: Dune Analytics
-serviceCategory: Web3
+publisherName: Dune
+serviceCategory: Crypto Analytics
 billingModel:
-  pricingCategory: To Be Reconciled
+  pricingCategory: Subscription with Metered Credit Allowance
   billingFrequency: Monthly
   billingCurrency: USD
   chargeCategories:
-  - Usage
-  - Purchase
-  - Adjustment
+    - Subscription
+    - Usage
+    - Adjustment
 focusColumns:
-  ServiceName: Dune Analytics
-  ServiceCategory: Web3
-  ProviderName: Dune Analytics
-  PublisherName: Dune Analytics
-  InvoiceIssuerName: Dune Analytics
+  ServiceName: Dune API
+  ServiceCategory: Crypto Analytics
+  ProviderName: Dune
+  PublisherName: Dune
+  InvoiceIssuerName: Dune
   BillingCurrency: USD
-  ChargeCategory: Usage
+  ChargeCategory: Subscription
 meters:
-- name: api_usage
-  description: Catch-all meter pending reconciliation.
-  unit: varies
-  aggregation: sum
-  dimensions:
-  - account
-  - resource
+  - name: subscription
+    description: Monthly subscription per workspace.
+    unit: month
+    aggregation: sum
+    dimensions:
+      - workspace
+  - name: query_execution_credits
+    description: Credits consumed by query executions.
+    unit: credit
+    aggregation: sum
+    dimensions:
+      - workspace
+      - query_id
+      - performance_tier
+  - name: export_credits
+    description: Credits consumed by exporting data (per MB).
+    unit: credit
+    aggregation: sum
+    dimensions:
+      - workspace
 principles:
-- name: Visibility
-  description: Pull provider invoices or usage exports until a self-serve usage feed is documented.
-- name: Allocation
-  description: Tag invoice line items to consuming business units in your FinOps store.
-- name: Optimization
-  description: Levers depend on the provider's billing model; review at renewal once reconciled.
-- name: Accountability
-  description: Assign a contract owner to review billing against negotiated terms.
+  - name: Visibility
+    description: Track credit usage per query and per consumer to forecast tier sufficiency.
+  - name: Allocation
+    description: Tag queries with consumer team to allocate credit usage on chargeback.
+  - name: Optimization
+    description: Right-size performance tier; cache results to avoid re-execution; gate retries.
+  - name: Accountability
+    description: Assign a billing owner per workspace; review monthly credit-vs-allowance.
 maintainers:
-- FN: Kin Lane
-  email: kin@apievangelist.com
+  - FN: Kin Lane
+    email: kin@apievangelist.com

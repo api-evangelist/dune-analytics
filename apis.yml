@@ -2,8 +2,6 @@ aid: dune-analytics
 url: https://raw.githubusercontent.com/api-evangelist/dune-analytics/refs/heads/main/apis.yml
 name: Dune Analytics
 x-type: company
-description: >-
-  Dune Analytics is a SQL-based crowdsourced blockchain analytics platform. Public dashboards and APIs for querying decoded onchain data across 50+ chains.
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
   - Web3
@@ -11,13 +9,97 @@ tags:
   - SQL
   - Dashboards
   - Blockchain
+  - Onchain
+  - Multi-chain
 created: '2026-05-08'
 modified: '2026-05-08'
 specificationVersion: '0.19'
-apis: []
+description: >-
+  Dune is a SQL-based crowdsourced blockchain analytics platform. The Dune API exposes Query
+  Execution endpoints (run/poll/results), pre-built Trends endpoints, EVM Transactions API,
+  Echo (real-time multichain wallet data via Sim), a Trino warehouse connector, and dbt
+  integration. Pricing is credit-based: query executions, data exports, and writes consume
+  credits against a plan-tier monthly allowance.
+apis:
+  - aid: dune-analytics:query-api
+    name: Dune Query API
+    tags:
+      - SQL
+      - Query
+      - Onchain
+      - Analytics
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    baseURL: https://api.dune.com/api/v1
+    humanURL: https://docs.dune.com/api-reference/overview/introduction
+    description: >-
+      REST endpoints for executing pre-saved Dune SQL queries, polling execution status, and
+      paginating results. Powers programmatic access to community and team-built analytics.
+      Authentication via X-Dune-API-Key header.
+    properties:
+      - type: Documentation
+        url: https://docs.dune.com/api-reference/overview/introduction
+      - type: Pricing
+        url: https://dune.com/pricing
+    x-features:
+      - Execute saved Dune SQL queries
+      - Poll execution status and fetch CSV/JSON results
+      - Parameterized queries
+      - Multiple performance tiers (Medium, Large)
+    x-use-cases:
+      - Embed Dune charts in apps
+      - Schedule blockchain analytics jobs
+      - Pipe onchain data into BI tools
+  - aid: dune-analytics:trends-api
+    name: Dune Trends API
+    tags:
+      - Trends
+      - Pre-built
+      - Onchain
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    baseURL: https://api.dune.com/api/v1/trends
+    humanURL: https://docs.dune.com/api-reference/trends/overview
+    description: Curated, fixed endpoints over Dune's most popular trend datasets without writing SQL.
+    properties:
+      - type: Documentation
+        url: https://docs.dune.com/api-reference/trends/overview
+    x-features:
+      - Pre-built trend endpoints
+      - No SQL required
+      - Faster than custom queries
+    x-use-cases:
+      - Quickly surface popular onchain trends
+      - Power newsletters and dashboards
+  - aid: dune-analytics:echo-api
+    name: Dune Echo (Sim) Multichain API
+    tags:
+      - Multichain
+      - Wallets
+      - Real-time
+      - EVM
+      - SVM
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    baseURL: https://api.sim.dune.com
+    humanURL: https://docs.sim.dune.com/
+    description: Real-time multichain wallet, token, and transaction data across EVM and SVM chains via Sim by Dune.
+    properties:
+      - type: Documentation
+        url: https://docs.sim.dune.com/
+    x-features:
+      - Real-time wallet balances and txs
+      - 60+ chains coverage
+      - SVM (Solana) support
+    x-use-cases:
+      - Power multichain wallet UIs
+      - Build cross-chain portfolio trackers
 common:
-  - type: Website
+  - type: Portal
     url: https://dune.com/
+  - type: Documentation
+    url: https://docs.dune.com/
+  - type: Pricing
+    url: https://dune.com/pricing
+  - type: GitHub
+    url: https://github.com/duneanalytics
   - type: Plans
     url: plans/dune-analytics-plans-pricing.yml
   - type: RateLimits

@@ -1,7 +1,7 @@
 aid: dune-analytics
 url: https://raw.githubusercontent.com/api-evangelist/dune-analytics/refs/heads/main/apis.yml
 name: Dune Analytics
-x-type: company
+kind: company
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
   - Web3

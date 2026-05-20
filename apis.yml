@@ -92,6 +92,8 @@ apis:
       - Power multichain wallet UIs
       - Build cross-chain portfolio trackers
 common:
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/dune-analytics
   - type: Portal
     url: https://dune.com/
   - type: Documentation

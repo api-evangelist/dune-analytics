@@ -1,0 +1,924 @@
+{
+  "item": [
+    {
+      "id": "109581f9-f354-4693-bddd-a22bd0393288",
+      "name": "Execute a saved Dune query",
+      "request": {
+        "name": "Execute a saved Dune query",
+        "description": {},
+        "url": {
+          "path": [
+            "query",
+            ":query_id",
+            "execute"
+          ],
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "query": [],
+          "variable": [
+            {
+              "disabled": false,
+              "type": "any",
+              "value": "<integer>",
+              "key": "query_id",
+              "description": "(Required) Numeric ID of the saved Dune query."
+            }
+          ]
+        },
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "method": "POST",
+        "auth": null,
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"query_parameters\": {\n    \"key_0\": 5536.3324494581975\n  },\n  \"performance\": \"medium\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": [
+        {
+          "id": "1737b15f-83dd-438e-9452-602065f0305a",
+          "name": "Execution accepted",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "query",
+                ":query_id",
+                "execute"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "query_id",
+                  "description": "(Required) Numeric ID of the saved Dune query."
+                }
+              ]
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: apikey",
+                  "type": "text/plain"
+                },
+                "key": "X-Dune-API-Key",
+                "value": "<API Key>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query_parameters\": {\n    \"key_0\": \"string\",\n    \"key_1\": 5046\n  },\n  \"performance\": \"medium\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"execution_id\": \"string\",\n  \"state\": \"QUERY_STATE_PENDING\"\n}",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        },
+        {
+          "id": "0cd9bfa0-ccf6-4686-b513-84a48c9e1803",
+          "name": "Invalid or missing API key",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "query",
+                ":query_id",
+                "execute"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "query_id",
+                  "description": "(Required) Numeric ID of the saved Dune query."
+                }
+              ]
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: apikey",
+                  "type": "text/plain"
+                },
+                "key": "X-Dune-API-Key",
+                "value": "<API Key>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query_parameters\": {\n    \"key_0\": \"string\",\n    \"key_1\": 5046\n  },\n  \"performance\": \"medium\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "Unauthorized",
+          "code": 401,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\",\n    \"metadata\": {\n      \"key_0\": 6300.448610973743,\n      \"key_1\": 5028.305606561609\n    }\n  }\n}",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        },
+        {
+          "id": "5f33392c-9dd3-4bcd-ad43-206a4988719d",
+          "name": "Rate limit or credit allowance exceeded",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "query",
+                ":query_id",
+                "execute"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "query_id",
+                  "description": "(Required) Numeric ID of the saved Dune query."
+                }
+              ]
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: apikey",
+                  "type": "text/plain"
+                },
+                "key": "X-Dune-API-Key",
+                "value": "<API Key>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query_parameters\": {\n    \"key_0\": \"string\",\n    \"key_1\": 5046\n  },\n  \"performance\": \"medium\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "Too Many Requests",
+          "code": 429,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\",\n    \"metadata\": {\n      \"key_0\": 6300.448610973743,\n      \"key_1\": 5028.305606561609\n    }\n  }\n}",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        }
+      ],
+      "event": [],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      }
+    },
+    {
+      "id": "412f7893-7722-4b10-8264-526c1f2d858e",
+      "name": "Get execution status",
+      "request": {
+        "name": "Get execution status",
+        "description": {},
+        "url": {
+          "path": [
+            "execution",
+            ":execution_id",
+            "status"
+          ],
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "query": [],
+          "variable": [
+            {
+              "disabled": false,
+              "type": "any",
+              "value": "<string>",
+              "key": "execution_id",
+              "description": "(Required) Execution identifier returned by /execute."
+            }
+          ]
+        },
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "method": "GET",
+        "auth": null
+      },
+      "response": [
+        {
+          "id": "4bdc22ce-7e00-4747-9863-f047cb92ad49",
+          "name": "Status payload",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "execution",
+                ":execution_id",
+                "status"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "execution_id",
+                  "description": "(Required) Execution identifier returned by /execute."
+                }
+              ]
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: apikey",
+                  "type": "text/plain"
+                },
+                "key": "X-Dune-API-Key",
+                "value": "<API Key>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "body": {}
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"execution_id\": \"string\",\n  \"query_id\": 2801,\n  \"state\": \"QUERY_STATE_EXECUTING\",\n  \"is_execution_finished\": true,\n  \"submitted_at\": \"2007-09-01T11:19:51.615Z\",\n  \"execution_started_at\": \"1976-02-12T20:39:45.087Z\",\n  \"execution_ended_at\": \"1997-01-12T13:18:54.582Z\",\n  \"execution_cost_credits\": 1961\n}",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        },
+        {
+          "id": "06e8ee36-0162-40f9-8a79-5f34898f31a1",
+          "name": "Invalid or missing API key",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "execution",
+                ":execution_id",
+                "status"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "execution_id",
+                  "description": "(Required) Execution identifier returned by /execute."
+                }
+              ]
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: apikey",
+                  "type": "text/plain"
+                },
+                "key": "X-Dune-API-Key",
+                "value": "<API Key>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "body": {}
+          },
+          "status": "Unauthorized",
+          "code": 401,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\",\n    \"metadata\": {\n      \"key_0\": 6300.448610973743,\n      \"key_1\": 5028.305606561609\n    }\n  }\n}",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        }
+      ],
+      "event": [],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      }
+    },
+    {
+      "id": "6778aa9c-6dbb-4c36-9bfc-4737f556c120",
+      "name": "Get execution results",
+      "request": {
+        "name": "Get execution results",
+        "description": {},
+        "url": {
+          "path": [
+            "execution",
+            ":execution_id",
+            "results"
+          ],
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "query": [
+            {
+              "disabled": false,
+              "key": "limit",
+              "value": "<integer>",
+              "description": "Page size for paginated results."
+            },
+            {
+              "disabled": false,
+              "key": "offset",
+              "value": "<integer>",
+              "description": "Row offset for paginated results."
+            }
+          ],
+          "variable": [
+            {
+              "disabled": false,
+              "type": "any",
+              "value": "<string>",
+              "key": "execution_id",
+              "description": "(Required) Execution identifier returned by /execute."
+            }
+          ]
+        },
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "method": "GET",
+        "auth": null
+      },
+      "response": [
+        {
+          "id": "36e0d55a-f997-4325-9630-3b785c90bdd5",
+          "name": "Result rows",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "execution",
+                ":execution_id",
+                "results"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "<integer>"
+                },
+                {
+                  "key": "offset",
+                  "value": "<integer>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "execution_id",
+                  "description": "(Required) Execution identifier returned by /execute."
+                }
+              ]
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: apikey",
+                  "type": "text/plain"
+                },
+                "key": "X-Dune-API-Key",
+                "value": "<API Key>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "body": {}
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"execution_id\": \"string\",\n  \"query_id\": 7729,\n  \"state\": \"string\",\n  \"result\": {\n    \"rows\": [\n      {\n        \"key_0\": 1524.7151283307726\n      },\n      {\n        \"key_0\": 4660.108537587011\n      }\n    ],\n    \"metadata\": {\n      \"key_0\": 328\n    }\n  }\n}",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        },
+        {
+          "id": "8995bdef-66fc-438f-b578-5de212177f37",
+          "name": "Invalid or missing API key",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "execution",
+                ":execution_id",
+                "results"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "<integer>"
+                },
+                {
+                  "key": "offset",
+                  "value": "<integer>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "execution_id",
+                  "description": "(Required) Execution identifier returned by /execute."
+                }
+              ]
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: apikey",
+                  "type": "text/plain"
+                },
+                "key": "X-Dune-API-Key",
+                "value": "<API Key>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "body": {}
+          },
+          "status": "Unauthorized",
+          "code": 401,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\",\n    \"metadata\": {\n      \"key_0\": 6300.448610973743,\n      \"key_1\": 5028.305606561609\n    }\n  }\n}",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        }
+      ],
+      "event": [],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      }
+    },
+    {
+      "id": "71baadad-32cd-4b57-a28b-3a27d2cf7548",
+      "name": "Cancel an in-flight execution",
+      "request": {
+        "name": "Cancel an in-flight execution",
+        "description": {},
+        "url": {
+          "path": [
+            "execution",
+            ":execution_id",
+            "cancel"
+          ],
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "query": [],
+          "variable": [
+            {
+              "disabled": false,
+              "type": "any",
+              "value": "<string>",
+              "key": "execution_id",
+              "description": "(Required) Execution identifier returned by /execute."
+            }
+          ]
+        },
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "method": "POST",
+        "auth": null
+      },
+      "response": [
+        {
+          "id": "35925489-2e78-447b-8bfd-8093c9fc1b47",
+          "name": "Cancellation accepted",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "execution",
+                ":execution_id",
+                "cancel"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "execution_id",
+                  "description": "(Required) Execution identifier returned by /execute."
+                }
+              ]
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: apikey",
+                  "type": "text/plain"
+                },
+                "key": "X-Dune-API-Key",
+                "value": "<API Key>"
+              }
+            ],
+            "method": "POST",
+            "body": {}
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "",
+          "cookie": [],
+          "_postman_previewlanguage": "text"
+        },
+        {
+          "id": "fb2d59f3-f9ea-4248-b974-60d049797b10",
+          "name": "Invalid or missing API key",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "execution",
+                ":execution_id",
+                "cancel"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "execution_id",
+                  "description": "(Required) Execution identifier returned by /execute."
+                }
+              ]
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: apikey",
+                  "type": "text/plain"
+                },
+                "key": "X-Dune-API-Key",
+                "value": "<API Key>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {}
+          },
+          "status": "Unauthorized",
+          "code": 401,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\",\n    \"metadata\": {\n      \"key_0\": 6300.448610973743,\n      \"key_1\": 5028.305606561609\n    }\n  }\n}",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        }
+      ],
+      "event": [],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      }
+    },
+    {
+      "id": "91741fd1-24b6-421e-bebc-2e750a638bd9",
+      "name": "Get latest results for a saved query",
+      "request": {
+        "name": "Get latest results for a saved query",
+        "description": {},
+        "url": {
+          "path": [
+            "query",
+            ":query_id",
+            "results"
+          ],
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "query": [
+            {
+              "disabled": false,
+              "key": "limit",
+              "value": "<integer>"
+            },
+            {
+              "disabled": false,
+              "key": "offset",
+              "value": "<integer>"
+            }
+          ],
+          "variable": [
+            {
+              "disabled": false,
+              "type": "any",
+              "value": "<integer>",
+              "key": "query_id",
+              "description": "(Required) Numeric ID of the saved Dune query."
+            }
+          ]
+        },
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "method": "GET",
+        "auth": null
+      },
+      "response": [
+        {
+          "id": "174d57fd-aa09-40f0-b7ab-c94fe1e084a1",
+          "name": "Latest cached result set",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "query",
+                ":query_id",
+                "results"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "<integer>"
+                },
+                {
+                  "key": "offset",
+                  "value": "<integer>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "query_id",
+                  "description": "(Required) Numeric ID of the saved Dune query."
+                }
+              ]
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: apikey",
+                  "type": "text/plain"
+                },
+                "key": "X-Dune-API-Key",
+                "value": "<API Key>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "body": {}
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"execution_id\": \"string\",\n  \"query_id\": 7729,\n  \"state\": \"string\",\n  \"result\": {\n    \"rows\": [\n      {\n        \"key_0\": 1524.7151283307726\n      },\n      {\n        \"key_0\": 4660.108537587011\n      }\n    ],\n    \"metadata\": {\n      \"key_0\": 328\n    }\n  }\n}",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        },
+        {
+          "id": "8364b7fe-cada-4b6b-870f-976604a57d06",
+          "name": "Invalid or missing API key",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "query",
+                ":query_id",
+                "results"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "<integer>"
+                },
+                {
+                  "key": "offset",
+                  "value": "<integer>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "query_id",
+                  "description": "(Required) Numeric ID of the saved Dune query."
+                }
+              ]
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: apikey",
+                  "type": "text/plain"
+                },
+                "key": "X-Dune-API-Key",
+                "value": "<API Key>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "body": {}
+          },
+          "status": "Unauthorized",
+          "code": 401,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\",\n    \"metadata\": {\n      \"key_0\": 6300.448610973743,\n      \"key_1\": 5028.305606561609\n    }\n  }\n}",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        }
+      ],
+      "event": [],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      }
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.dune.com/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Dune-API-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "60f58592-4205-4ce6-b8cd-e3c81677a062",
+    "name": "Dune Analytics Query API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST endpoints for executing pre-saved Dune SQL queries, polling\nexecution status, and paginating results. Authentication via the\nX-Dune-API-Key header. This specification is a best-effort,\ndocumentation-derived description and may omit fields.\n\n\nContact Support:\n Name: Dune Analytics",
+      "type": "text/plain"
+    }
+  }
+}

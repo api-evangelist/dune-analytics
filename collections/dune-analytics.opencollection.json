@@ -1,0 +1,139 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Dune Analytics Query API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Dune-API-Key",
+      "value": "{{X-Dune-API-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Execute a saved Dune query",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "https://api.dune.com/api/v1/query/:query_id/execute",
+        "params": [
+          {
+            "name": "query_id",
+            "value": "",
+            "type": "path",
+            "description": "Numeric ID of the saved Dune query."
+          }
+        ],
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Execute a saved Dune query"
+    },
+    {
+      "info": {
+        "name": "Get execution status",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.dune.com/api/v1/execution/:execution_id/status",
+        "params": [
+          {
+            "name": "execution_id",
+            "value": "",
+            "type": "path",
+            "description": "Execution identifier returned by /execute."
+          }
+        ]
+      },
+      "docs": "Get execution status"
+    },
+    {
+      "info": {
+        "name": "Get execution results",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.dune.com/api/v1/execution/:execution_id/results",
+        "params": [
+          {
+            "name": "execution_id",
+            "value": "",
+            "type": "path",
+            "description": "Execution identifier returned by /execute."
+          },
+          {
+            "name": "limit",
+            "value": "",
+            "type": "query",
+            "description": "Page size for paginated results."
+          },
+          {
+            "name": "offset",
+            "value": "",
+            "type": "query",
+            "description": "Row offset for paginated results."
+          }
+        ]
+      },
+      "docs": "Get execution results"
+    },
+    {
+      "info": {
+        "name": "Cancel an in-flight execution",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "https://api.dune.com/api/v1/execution/:execution_id/cancel",
+        "params": [
+          {
+            "name": "execution_id",
+            "value": "",
+            "type": "path",
+            "description": "Execution identifier returned by /execute."
+          }
+        ]
+      },
+      "docs": "Cancel an in-flight execution"
+    },
+    {
+      "info": {
+        "name": "Get latest results for a saved query",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.dune.com/api/v1/query/:query_id/results",
+        "params": [
+          {
+            "name": "query_id",
+            "value": "",
+            "type": "path",
+            "description": "Numeric ID of the saved Dune query."
+          },
+          {
+            "name": "limit",
+            "value": "",
+            "type": "query"
+          },
+          {
+            "name": "offset",
+            "value": "",
+            "type": "query"
+          }
+        ]
+      },
+      "docs": "Get latest results for a saved query"
+    }
+  ],
+  "bundled": true
+}

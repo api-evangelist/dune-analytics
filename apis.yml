@@ -92,6 +92,12 @@ apis:
       - Power multichain wallet UIs
       - Build cross-chain portfolio trackers
 common:
+  - type: TrustCenter
+    url: security/dune-analytics-trust-center.yml
+  - type: DomainSecurity
+    url: security/dune-analytics-domain-security.yml
+  - type: Authentication
+    url: authentication/dune-analytics-authentication.yml
   - type: LinkedIn
     url: https://www.linkedin.com/company/dune-analytics
   - type: Portal
@@ -110,6 +116,8 @@ common:
     url: finops/dune-analytics-finops.yml
   - type: LlmsText
     url: https://docs.dune.com/llms.txt
+  - url: https://dune.com/blog/feed
+    type: Blog
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

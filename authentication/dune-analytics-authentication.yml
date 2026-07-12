@@ -1,0 +1,15 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/dune-analytics-openapi.yml
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+schemes:
+- name: DuneApiKey
+  type: apiKey
+  in: header
+  parameter: X-Dune-API-Key
+  sources:
+  - openapi/dune-analytics-openapi.yml

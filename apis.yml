@@ -92,6 +92,8 @@ apis:
       - Power multichain wallet UIs
       - Build cross-chain portfolio trackers
 common:
+  - type: AgenticAccess
+    url: agentic-access/dune-analytics-agentic-access.yml
   - type: TrustCenter
     url: security/dune-analytics-trust-center.yml
   - type: DomainSecurity

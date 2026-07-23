@@ -1,0 +1,156 @@
+openapi: 3.1.0
+info:
+  title: Dune Analytics Execution Query API
+  description: 'REST endpoints for executing pre-saved Dune SQL queries, polling
+
+    execution status, and paginating results. Authentication via the
+
+    X-Dune-API-Key header. This specification is a best-effort,
+
+    documentation-derived description and may omit fields.
+
+    '
+  version: 1.0.0
+  contact:
+    name: Dune Analytics
+    url: https://docs.dune.com/
+servers:
+- url: https://api.dune.com/api/v1
+  description: Production
+security:
+- DuneApiKey: []
+tags:
+- name: Query
+paths:
+  /query/{query_id}/execute:
+    post:
+      summary: Execute a saved Dune query
+      operationId: executeQuery
+      parameters:
+      - $ref: '#/components/parameters/QueryId'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                query_parameters:
+                  type: object
+                  additionalProperties: true
+                  description: Parameter values for the saved query.
+                performance:
+                  type: string
+                  enum:
+                  - small
+                  - medium
+                  - large
+                  default: medium
+                  description: Compute tier for the execution.
+      responses:
+        '200':
+          description: Execution accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExecutionAccepted'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+      tags:
+      - Query
+  /query/{query_id}/results:
+    get:
+      summary: Get latest results for a saved query
+      operationId: getLatestQueryResults
+      parameters:
+      - $ref: '#/components/parameters/QueryId'
+      - in: query
+        name: limit
+        schema:
+          type: integer
+      - in: query
+        name: offset
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Latest cached result set
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExecutionResults'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      tags:
+      - Query
+components:
+  schemas:
+    ExecutionResults:
+      type: object
+      properties:
+        execution_id:
+          type: string
+        query_id:
+          type: integer
+        state:
+          type: string
+        result:
+          type: object
+          properties:
+            rows:
+              type: array
+              items:
+                type: object
+                additionalProperties: true
+            metadata:
+              type: object
+              additionalProperties: true
+    ExecutionAccepted:
+      type: object
+      properties:
+        execution_id:
+          type: string
+        state:
+          type: string
+          example: QUERY_STATE_PENDING
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            type:
+              type: string
+            message:
+              type: string
+            metadata:
+              type: object
+              additionalProperties: true
+  responses:
+    Unauthorized:
+      description: Invalid or missing API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    RateLimited:
+      description: Rate limit or credit allowance exceeded
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    QueryId:
+      in: path
+      name: query_id
+      required: true
+      schema:
+        type: integer
+      description: Numeric ID of the saved Dune query.
+  securitySchemes:
+    DuneApiKey:
+      type: apiKey
+      in: header
+      name: X-Dune-API-Key

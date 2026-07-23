@@ -1,0 +1,164 @@
+openapi: 3.1.0
+info:
+  title: Dune Analytics Query Execution API
+  description: 'REST endpoints for executing pre-saved Dune SQL queries, polling
+
+    execution status, and paginating results. Authentication via the
+
+    X-Dune-API-Key header. This specification is a best-effort,
+
+    documentation-derived description and may omit fields.
+
+    '
+  version: 1.0.0
+  contact:
+    name: Dune Analytics
+    url: https://docs.dune.com/
+servers:
+- url: https://api.dune.com/api/v1
+  description: Production
+security:
+- DuneApiKey: []
+tags:
+- name: Execution
+paths:
+  /execution/{execution_id}/status:
+    get:
+      summary: Get execution status
+      operationId: getExecutionStatus
+      parameters:
+      - $ref: '#/components/parameters/ExecutionId'
+      responses:
+        '200':
+          description: Status payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExecutionStatus'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      tags:
+      - Execution
+  /execution/{execution_id}/results:
+    get:
+      summary: Get execution results
+      operationId: getExecutionResults
+      parameters:
+      - $ref: '#/components/parameters/ExecutionId'
+      - in: query
+        name: limit
+        schema:
+          type: integer
+        description: Page size for paginated results.
+      - in: query
+        name: offset
+        schema:
+          type: integer
+        description: Row offset for paginated results.
+      responses:
+        '200':
+          description: Result rows
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExecutionResults'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      tags:
+      - Execution
+  /execution/{execution_id}/cancel:
+    post:
+      summary: Cancel an in-flight execution
+      operationId: cancelExecution
+      parameters:
+      - $ref: '#/components/parameters/ExecutionId'
+      responses:
+        '200':
+          description: Cancellation accepted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      tags:
+      - Execution
+components:
+  schemas:
+    ExecutionResults:
+      type: object
+      properties:
+        execution_id:
+          type: string
+        query_id:
+          type: integer
+        state:
+          type: string
+        result:
+          type: object
+          properties:
+            rows:
+              type: array
+              items:
+                type: object
+                additionalProperties: true
+            metadata:
+              type: object
+              additionalProperties: true
+    ExecutionStatus:
+      type: object
+      properties:
+        execution_id:
+          type: string
+        query_id:
+          type: integer
+        state:
+          type: string
+          enum:
+          - QUERY_STATE_PENDING
+          - QUERY_STATE_EXECUTING
+          - QUERY_STATE_COMPLETED
+          - QUERY_STATE_FAILED
+          - QUERY_STATE_CANCELLED
+        is_execution_finished:
+          type: boolean
+        submitted_at:
+          type: string
+          format: date-time
+        execution_started_at:
+          type: string
+          format: date-time
+        execution_ended_at:
+          type: string
+          format: date-time
+        execution_cost_credits:
+          type: integer
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            type:
+              type: string
+            message:
+              type: string
+            metadata:
+              type: object
+              additionalProperties: true
+  parameters:
+    ExecutionId:
+      in: path
+      name: execution_id
+      required: true
+      schema:
+        type: string
+      description: Execution identifier returned by /execute.
+  responses:
+    Unauthorized:
+      description: Invalid or missing API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    DuneApiKey:
+      type: apiKey
+      in: header
+      name: X-Dune-API-Key

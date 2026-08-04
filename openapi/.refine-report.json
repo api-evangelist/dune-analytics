@@ -1,0 +1,16 @@
+{
+  "provider": "dune-analytics",
+  "sources": [
+    "dune-analytics-execution-api-openapi.yml",
+    "dune-analytics-query-api-openapi.yml"
+  ],
+  "outputs": [
+    "dune-analytics-execution-api-openapi.yml",
+    "dune-analytics-query-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

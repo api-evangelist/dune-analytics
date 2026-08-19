@@ -1,0 +1,78 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Dune Analytics Execution Query API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Dune-API-Key",
+      "value": "{{X-Dune-API-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Query",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Execute a saved Dune query",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.dune.com/api/v1/query/:query_id/execute",
+            "params": [
+              {
+                "name": "query_id",
+                "value": "",
+                "type": "path",
+                "description": "Numeric ID of the saved Dune query."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Execute a saved Dune query"
+        },
+        {
+          "info": {
+            "name": "Get latest results for a saved query",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dune.com/api/v1/query/:query_id/results",
+            "params": [
+              {
+                "name": "query_id",
+                "value": "",
+                "type": "path",
+                "description": "Numeric ID of the saved Dune query."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get latest results for a saved query"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

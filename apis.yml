@@ -23,6 +23,14 @@ tags:
   - Dashboards
   - Blockchain
   - Onchain
+  - Multi-Chain
+tags_raw:
+  - Web3
+  - Analytics
+  - SQL
+  - Dashboards
+  - Blockchain
+  - Onchain
   - Multi-chain
 created: '2026-05-08'
 modified: '2026-05-08'
@@ -85,6 +93,12 @@ apis:
 - aid: dune-analytics:echo-api
   name: Dune Echo (Sim) Multichain API
   tags:
+  - Multi-Chain
+  - Wallets
+  - Real-Time
+  - EVM
+  - SVM
+  tags_raw:
   - Multichain
   - Wallets
   - Real-time

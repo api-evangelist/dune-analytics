@@ -35,7 +35,7 @@ tags:
   - Dashboards
   - Blockchain
   - Onchain
-  - Multi-Chain
+  - Multi-chain
 tags_raw:
   - Web3
   - Analytics
@@ -105,7 +105,7 @@ apis:
 - aid: dune-analytics:echo-api
   name: Dune Echo (Sim) Multichain API
   tags:
-  - Multi-Chain
+  - Multichain
   - Wallets
   - Real-Time
   - EVM

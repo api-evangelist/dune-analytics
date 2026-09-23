@@ -1,0 +1,27 @@
+# Front Door AI Index — dune-analytics — 2026-09-17
+# AI vocabulary counted on the provider's root page. Generated; do not edit.
+# `score` is null unless ownership is `own` — see front_door_ai.py.
+front_door_ai:
+  slug: dune-analytics
+  lexicon_version: '1.0'
+  probed_at: '2026-09-17'
+  host: www.dune.com
+  final_host: dune.com
+  ownership: own
+  owner: dune-analytics
+  shares_host_with: null
+  inherited_from: null
+  verdict: scored
+  score: 4
+  host_score: 4
+  density: 10.5
+  words: 381
+  tiers:
+    agentic: 2
+    core: 0
+    model: 2
+  ambiguous: 0
+  top_terms:
+    MCP: 2
+    Anthropic: 1
+    OpenAI: 1

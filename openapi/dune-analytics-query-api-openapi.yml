@@ -1,15 +1,13 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Dune Analytics Execution Query API
+  title: Dune Analytics Query API
   description: 'REST endpoints for executing pre-saved Dune SQL queries, polling
 
     execution status, and paginating results. Authentication via the
 
     X-Dune-API-Key header. This specification is a best-effort,
 
-    documentation-derived description and may omit fields.
-
-    '
+    documentation-derived description and may omit fields.'
   version: 1.0.0
   contact:
     name: Dune Analytics
@@ -86,6 +84,19 @@ paths:
       tags:
       - Query
 components:
+  responses:
+    RateLimited:
+      description: Rate limit or credit allowance exceeded
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Invalid or missing API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
     ExecutionResults:
       type: object
@@ -107,14 +118,6 @@ components:
             metadata:
               type: object
               additionalProperties: true
-    ExecutionAccepted:
-      type: object
-      properties:
-        execution_id:
-          type: string
-        state:
-          type: string
-          example: QUERY_STATE_PENDING
     Error:
       type: object
       properties:
@@ -128,19 +131,14 @@ components:
             metadata:
               type: object
               additionalProperties: true
-  responses:
-    Unauthorized:
-      description: Invalid or missing API key
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    RateLimited:
-      description: Rate limit or credit allowance exceeded
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+    ExecutionAccepted:
+      type: object
+      properties:
+        execution_id:
+          type: string
+        state:
+          type: string
+          example: QUERY_STATE_PENDING
   parameters:
     QueryId:
       in: path

@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: Dune Analytics Query Execution API
   description: 'REST endpoints for executing pre-saved Dune SQL queries, polling
@@ -7,9 +7,7 @@ info:
 
     X-Dune-API-Key header. This specification is a best-effort,
 
-    documentation-derived description and may omit fields.
-
-    '
+    documentation-derived description and may omit fields.'
   version: 1.0.0
   contact:
     name: Dune Analytics
@@ -81,26 +79,6 @@ paths:
       - Execution
 components:
   schemas:
-    ExecutionResults:
-      type: object
-      properties:
-        execution_id:
-          type: string
-        query_id:
-          type: integer
-        state:
-          type: string
-        result:
-          type: object
-          properties:
-            rows:
-              type: array
-              items:
-                type: object
-                additionalProperties: true
-            metadata:
-              type: object
-              additionalProperties: true
     ExecutionStatus:
       type: object
       properties:
@@ -129,6 +107,26 @@ components:
           format: date-time
         execution_cost_credits:
           type: integer
+    ExecutionResults:
+      type: object
+      properties:
+        execution_id:
+          type: string
+        query_id:
+          type: integer
+        state:
+          type: string
+        result:
+          type: object
+          properties:
+            rows:
+              type: array
+              items:
+                type: object
+                additionalProperties: true
+            metadata:
+              type: object
+              additionalProperties: true
     Error:
       type: object
       properties:

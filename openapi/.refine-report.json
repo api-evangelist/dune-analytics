@@ -1,8 +1,7 @@
 {
   "provider": "dune-analytics",
   "sources": [
-    "dune-analytics-execution-api-openapi.yml",
-    "dune-analytics-query-api-openapi.yml"
+    "_original/dune-analytics-openapi.yml"
   ],
   "outputs": [
     "dune-analytics-execution-api-openapi.yml",
@@ -11,6 +10,20 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "dune-analytics-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "dune-analytics-openapi.yml: tagged paths POST /query/{query_id}/execute -> Query",
+    "dune-analytics-openapi.yml: tagged paths GET /execution/{execution_id}/status -> Execution",
+    "dune-analytics-openapi.yml: tagged paths GET /execution/{execution_id}/results -> Execution",
+    "dune-analytics-openapi.yml: tagged paths POST /execution/{execution_id}/cancel -> Execution",
+    "dune-analytics-openapi.yml: tagged paths GET /query/{query_id}/results -> Query",
+    "dune-analytics-openapi.yml: declared missing tag: Execution",
+    "dune-analytics-openapi.yml: declared missing tag: Query",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "dune-analytics-execution-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "dune-analytics-query-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

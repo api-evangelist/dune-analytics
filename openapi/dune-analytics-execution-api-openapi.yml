@@ -78,6 +78,14 @@ paths:
       tags:
       - Execution
 components:
+  parameters:
+    ExecutionId:
+      in: path
+      name: execution_id
+      required: true
+      schema:
+        type: string
+      description: Execution identifier returned by /execute.
   schemas:
     ExecutionStatus:
       type: object
@@ -140,14 +148,6 @@ components:
             metadata:
               type: object
               additionalProperties: true
-  parameters:
-    ExecutionId:
-      in: path
-      name: execution_id
-      required: true
-      schema:
-        type: string
-      description: Execution identifier returned by /execute.
   responses:
     Unauthorized:
       description: Invalid or missing API key

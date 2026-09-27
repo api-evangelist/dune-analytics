@@ -118,6 +118,14 @@ components:
             metadata:
               type: object
               additionalProperties: true
+    ExecutionAccepted:
+      type: object
+      properties:
+        execution_id:
+          type: string
+        state:
+          type: string
+          example: QUERY_STATE_PENDING
     Error:
       type: object
       properties:
@@ -131,14 +139,6 @@ components:
             metadata:
               type: object
               additionalProperties: true
-    ExecutionAccepted:
-      type: object
-      properties:
-        execution_id:
-          type: string
-        state:
-          type: string
-          example: QUERY_STATE_PENDING
   parameters:
     QueryId:
       in: path

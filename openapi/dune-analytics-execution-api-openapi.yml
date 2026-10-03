@@ -78,14 +78,6 @@ paths:
       tags:
       - Execution
 components:
-  parameters:
-    ExecutionId:
-      in: path
-      name: execution_id
-      required: true
-      schema:
-        type: string
-      description: Execution identifier returned by /execute.
   schemas:
     ExecutionStatus:
       type: object
@@ -115,6 +107,19 @@ components:
           format: date-time
         execution_cost_credits:
           type: integer
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            type:
+              type: string
+            message:
+              type: string
+            metadata:
+              type: object
+              additionalProperties: true
     ExecutionResults:
       type: object
       properties:
@@ -135,19 +140,14 @@ components:
             metadata:
               type: object
               additionalProperties: true
-    Error:
-      type: object
-      properties:
-        error:
-          type: object
-          properties:
-            type:
-              type: string
-            message:
-              type: string
-            metadata:
-              type: object
-              additionalProperties: true
+  parameters:
+    ExecutionId:
+      in: path
+      name: execution_id
+      required: true
+      schema:
+        type: string
+      description: Execution identifier returned by /execute.
   responses:
     Unauthorized:
       description: Invalid or missing API key

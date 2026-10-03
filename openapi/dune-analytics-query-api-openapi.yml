@@ -84,20 +84,20 @@ paths:
       tags:
       - Query
 components:
-  responses:
-    RateLimited:
-      description: Rate limit or credit allowance exceeded
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Invalid or missing API key
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            type:
+              type: string
+            message:
+              type: string
+            metadata:
+              type: object
+              additionalProperties: true
     ExecutionResults:
       type: object
       properties:
@@ -126,19 +126,19 @@ components:
         state:
           type: string
           example: QUERY_STATE_PENDING
-    Error:
-      type: object
-      properties:
-        error:
-          type: object
-          properties:
-            type:
-              type: string
-            message:
-              type: string
-            metadata:
-              type: object
-              additionalProperties: true
+  responses:
+    RateLimited:
+      description: Rate limit or credit allowance exceeded
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Invalid or missing API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
     QueryId:
       in: path

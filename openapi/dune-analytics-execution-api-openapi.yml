@@ -79,34 +79,6 @@ paths:
       - Execution
 components:
   schemas:
-    ExecutionStatus:
-      type: object
-      properties:
-        execution_id:
-          type: string
-        query_id:
-          type: integer
-        state:
-          type: string
-          enum:
-          - QUERY_STATE_PENDING
-          - QUERY_STATE_EXECUTING
-          - QUERY_STATE_COMPLETED
-          - QUERY_STATE_FAILED
-          - QUERY_STATE_CANCELLED
-        is_execution_finished:
-          type: boolean
-        submitted_at:
-          type: string
-          format: date-time
-        execution_started_at:
-          type: string
-          format: date-time
-        execution_ended_at:
-          type: string
-          format: date-time
-        execution_cost_credits:
-          type: integer
     Error:
       type: object
       properties:
@@ -140,6 +112,34 @@ components:
             metadata:
               type: object
               additionalProperties: true
+    ExecutionStatus:
+      type: object
+      properties:
+        execution_id:
+          type: string
+        query_id:
+          type: integer
+        state:
+          type: string
+          enum:
+          - QUERY_STATE_PENDING
+          - QUERY_STATE_EXECUTING
+          - QUERY_STATE_COMPLETED
+          - QUERY_STATE_FAILED
+          - QUERY_STATE_CANCELLED
+        is_execution_finished:
+          type: boolean
+        submitted_at:
+          type: string
+          format: date-time
+        execution_started_at:
+          type: string
+          format: date-time
+        execution_ended_at:
+          type: string
+          format: date-time
+        execution_cost_credits:
+          type: integer
   parameters:
     ExecutionId:
       in: path

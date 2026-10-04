@@ -28,6 +28,9 @@ accessModel:
   generated: '2026-07-22'
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/dune-analytics.png
+x-docs-platform: mintlify
+x-docs-platform-confidence: medium
+x-docs-platform-checked: 2026-10-03
 tags:
   - Web3
   - Analytics
@@ -154,6 +157,9 @@ apis:
   - type: OpenAPI
     url: openapi/dune-analytics-query-api-openapi.yml
 common:
+  - type: CapabilityMap
+    url: capabilities/dune-analytics-capability-edges.yml
+    name: Dune Analytics Business Capability Map
   - type: Website
     url: https://www.dune.com/
   - type: AgenticAccess

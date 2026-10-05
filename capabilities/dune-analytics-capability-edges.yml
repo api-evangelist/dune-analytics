@@ -1,0 +1,25 @@
+slug: dune-analytics
+provider: Dune Analytics
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 1
+edges:
+- tag: Query
+  spec_file: dune-analytics-query-api-openapi.yml
+  capability_id: BC-610.50
+  capability_id_l1: BC-610
+  capability_name: Analytics & BI Management
+  confidence: 0.78
+  evidence: POST /query/{query_id}/execute  executeQuery  Execute a saved Dune query; GET /query/{query_id}/results  getLatestQueryResults
+  reason: Running saved SQL analytics queries and retrieving their result sets is delivery of reporting/analytics
+    data, matching Analytics & BI Management. Not an industry-specific capability despite the blockchain
+    subject matter.

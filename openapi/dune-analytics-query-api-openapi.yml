@@ -85,19 +85,6 @@ paths:
       - Query
 components:
   schemas:
-    Error:
-      type: object
-      properties:
-        error:
-          type: object
-          properties:
-            type:
-              type: string
-            message:
-              type: string
-            metadata:
-              type: object
-              additionalProperties: true
     ExecutionResults:
       type: object
       properties:
@@ -118,6 +105,19 @@ components:
             metadata:
               type: object
               additionalProperties: true
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            type:
+              type: string
+            message:
+              type: string
+            metadata:
+              type: object
+              additionalProperties: true
     ExecutionAccepted:
       type: object
       properties:
@@ -126,6 +126,19 @@ components:
         state:
           type: string
           example: QUERY_STATE_PENDING
+  responses:
+    RateLimited:
+      description: Rate limit or credit allowance exceeded
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Invalid or missing API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
     QueryId:
       in: path
@@ -134,19 +147,6 @@ components:
       schema:
         type: integer
       description: Numeric ID of the saved Dune query.
-  responses:
-    Unauthorized:
-      description: Invalid or missing API key
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    RateLimited:
-      description: Rate limit or credit allowance exceeded
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     DuneApiKey:
       type: apiKey

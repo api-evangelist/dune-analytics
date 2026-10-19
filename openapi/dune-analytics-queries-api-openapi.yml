@@ -1,0 +1,320 @@
+openapi: 3.2.0
+info:
+  contact: {}
+  description: Dune API
+  title: Dune Queries API
+  version: '1.0'
+servers:
+- url: https://api.dune.com/api
+tags:
+- name: Queries
+paths:
+  /v1/queries:
+    get:
+      description: Retrieve a paginated list of queries owned by the account tied to the API key
+      parameters:
+      - description: API Key for the service
+        in: header
+        name: X-Dune-Api-Key
+        required: true
+        schema:
+          type: string
+      - description: API Key, alternative to using the HTTP header X-Dune-Api-Key
+        in: query
+        name: api_key
+        schema:
+          type: string
+      - description: 'Number of queries to return on a page. Default: 20'
+        in: query
+        name: limit
+        schema:
+          type: integer
+      - description: 'Offset used for pagination. Default: 0'
+        in: query
+        name: offset
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.ListQueriesResponse'
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.Error400'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.Error401'
+          description: Unauthorized
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.Error500'
+          description: Internal Server Error
+      summary: List queries
+      x-required-scope: Read
+      tags:
+      - Queries
+      operationId: getV1Queries
+      x-operation-id-source: derived
+  /v1/queries/{query_id}/visualizations:
+    get:
+      description: Lists all visualizations attached to the specified query with pagination.
+      parameters:
+      - description: API Key for the service
+        in: header
+        name: X-Dune-Api-Key
+        required: true
+        schema:
+          type: string
+      - description: Query ID
+        in: path
+        name: query_id
+        required: true
+        schema:
+          type: integer
+      - description: Max results to return (default 25, max 100)
+        in: query
+        name: limit
+        schema:
+          type: integer
+      - description: Pagination offset (default 0)
+        in: query
+        name: offset
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.ListVisualizationsResponse'
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.Error400'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.Error401'
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.Error403'
+          description: Forbidden
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.Error404'
+          description: Not Found
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.Error500'
+          description: Internal Server Error
+      summary: List visualizations for a query
+      x-required-scope: Read
+      tags:
+      - Queries
+      operationId: getV1QueriesByQueryIdVisualizations
+      x-operation-id-source: derived
+    post:
+      description: Creates a new visualization attached to the specified query.
+      parameters:
+      - description: API Key for the service
+        in: header
+        name: X-Dune-Api-Key
+        required: true
+        schema:
+          type: string
+      - description: Query ID
+        in: path
+        name: query_id
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/models.CreateVisualizationRequest'
+        description: CreateVisualizationRequest
+        required: true
+        x-originalParamName: body
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.CreateVisualizationResponse'
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.Error400'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.Error401'
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.Error403'
+          description: Forbidden
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.Error404'
+          description: Not Found
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.Error500'
+          description: Internal Server Error
+      summary: Create a visualization on an existing query
+      x-required-scope: Read/Write
+      tags:
+      - Queries
+      operationId: postV1QueriesByQueryIdVisualizations
+      x-operation-id-source: derived
+components:
+  schemas:
+    models.Error400:
+      properties:
+        error:
+          example: Bad Request
+          type: string
+      type: object
+    models.CreateVisualizationResponse:
+      properties:
+        id:
+          type: integer
+      type: object
+    models.Error403:
+      properties:
+        error:
+          example: Not allowed to execute query. Query is archived, unsaved or not enough permissions
+          type: string
+      type: object
+    models.Error404:
+      properties:
+        error:
+          example: Object not found
+          type: string
+      type: object
+    models.VisualizationSummary:
+      properties:
+        created_at:
+          type: string
+        id:
+          type: integer
+        name:
+          type: string
+        type:
+          type: string
+        updated_at:
+          type: string
+      type: object
+    models.ListQueriesResponse:
+      properties:
+        queries:
+          description: List of queries
+          items:
+            $ref: '#/components/schemas/models.ResolvedQueryOverview'
+          type: array
+        total:
+          description: Total number of queries available
+          example: 100
+          type: integer
+      type: object
+    models.CreateVisualizationRequest:
+      properties:
+        description:
+          type: string
+        name:
+          type: string
+        options:
+          additionalProperties: {}
+          type: object
+        type:
+          type: string
+      required:
+      - name
+      - type
+      type: object
+    models.Error401:
+      properties:
+        error:
+          example: Invalid API Key
+          type: string
+      type: object
+    models.ResolvedQueryOverview:
+      properties:
+        created_at:
+          type: string
+        description:
+          description: Description of the query
+          type: string
+        id:
+          description: Unique identifier of the query
+          type: integer
+        name:
+          description: Name of the query
+          example: My Query
+          type: string
+        owner:
+          description: Owner handle (username or team handle)
+          type: string
+        tags:
+          description: Tags associated with the query
+          items:
+            type: string
+          type: array
+        updated_at:
+          type: string
+      type: object
+    models.ListVisualizationsResponse:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/models.VisualizationSummary'
+          type: array
+        total_count:
+          type: integer
+      type: object
+    models.Error500:
+      properties:
+        error:
+          example: Internal error
+          type: string
+      type: object
+x-service-info:
+  categories:
+  - data
+  - compute
+  docs:
+    apiReference: https://docs.dune.com/api-reference/overview/introduction
+    homepage: https://docs.dune.com

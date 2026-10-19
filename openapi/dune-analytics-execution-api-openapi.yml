@@ -1,162 +1,666 @@
 openapi: 3.2.0
 info:
-  title: Dune Analytics Query Execution API
-  description: 'REST endpoints for executing pre-saved Dune SQL queries, polling
-
-    execution status, and paginating results. Authentication via the
-
-    X-Dune-API-Key header. This specification is a best-effort,
-
-    documentation-derived description and may omit fields.'
-  version: 1.0.0
-  contact:
-    name: Dune Analytics
-    url: https://docs.dune.com/
+  contact: {}
+  description: Dune API
+  title: Dune Execution API
+  version: '1.0'
 servers:
-- url: https://api.dune.com/api/v1
-  description: Production
-security:
-- DuneApiKey: []
+- url: https://api.dune.com/api
 tags:
 - name: Execution
 paths:
-  /execution/{execution_id}/status:
-    get:
-      summary: Get execution status
-      operationId: getExecutionStatus
+  /v1/execution/{execution_id}/cancel:
+    post:
       parameters:
-      - $ref: '#/components/parameters/ExecutionId'
+      - description: API Key for the service
+        in: header
+        name: X-Dune-Api-Key
+        required: true
+        schema:
+          type: string
+      - description: API Key, alternative to using the HTTP header X-Dune-Api-Key
+        in: query
+        name: api_key
+        schema:
+          type: string
+      - description: The unique identifier of the execution
+        in: path
+        name: execution_id
+        required: true
+        schema:
+          type: string
       responses:
         '200':
-          description: Status payload
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ExecutionStatus'
+                $ref: '#/components/schemas/models.CancelQueryExecutionResponse'
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.Error400'
+          description: Bad Request
         '401':
-          $ref: '#/components/responses/Unauthorized'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.Error401'
+          description: Unauthorized
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.Error404'
+          description: Not Found
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.Error500'
+          description: Internal Server Error
+      summary: Cancel a triggered execution request given the execution ID
+      x-required-scope: Read
       tags:
       - Execution
-  /execution/{execution_id}/results:
+      operationId: postV1ExecutionByExecutionIdCancel
+      x-operation-id-source: derived
+  /v1/execution/{execution_id}/results:
     get:
-      summary: Get execution results
-      operationId: getExecutionResults
       parameters:
-      - $ref: '#/components/parameters/ExecutionId'
-      - in: query
+      - description: API Key for the service
+        in: header
+        name: X-Dune-Api-Key
+        required: true
+        schema:
+          type: string
+      - description: Alternative to using the X-Dune-Api-Key header
+        in: query
+        name: api_key
+        schema:
+          type: string
+      - description: Execution ID
+        in: path
+        name: execution_id
+        required: true
+        schema:
+          type: string
+      - description: 'This enables returning a query result that was too large and only a partial result is
+
+          available. By default, allow_partial_results is set to false and a failed state is returned.'
+        in: query
+        name: allow_partial_results
+        schema:
+          type: boolean
+      - description: 'Specifies a comma-separated list of column names to return. If omitted, all columns are included.
+
+          Tip: use this to limit the result to specific columns, reducing datapoints cost of the call.'
+        in: query
+        name: columns
+        schema:
+          type: string
+      - description: 'Expression to filter out rows from the results to return. This expression is similar to
+
+          a SQL WHERE clause. More details about it in the Filtering section of the doc.
+
+          This parameter is incompatible with sample_count.'
+        in: query
+        name: filters
+        schema:
+          type: string
+      - description: To bypass the default max credits per request limit, set ignore_max_credits_per_request=true
+        in: query
+        name: ignore_max_credits_per_request
+        schema:
+          type: boolean
+      - description: 'Limit number of rows to return. This together with ''offset'' allows easy pagination through
+
+          results in an incremental and efficient way. This parameter is incompatible
+
+          with sampling (sample_count).'
+        in: query
         name: limit
         schema:
           type: integer
-        description: Page size for paginated results.
-      - in: query
+      - description: 'Offset row number to start (inclusive, first row means offset=0) returning results
+
+          from. This together with ''limit'' allows easy pagination through results in an
+
+          incremental and efficient way. This parameter is incompatible with sampling (sample_count).'
+        in: query
         name: offset
         schema:
           type: integer
-        description: Row offset for paginated results.
+      - description: 'Number of rows to return from the result by sampling the data. This is useful when you
+
+          want to get a uniform sample instead of the entire result. If the result has less
+
+          than the sample count, the entire result is returned. Note that this will return a
+
+          randomized sample, so not every call will return the same result. This parameter is
+
+          incompatible with `offset`, `limit`, and `filters` parameters.'
+        in: query
+        name: sample_count
+        schema:
+          type: integer
+      - description: 'Expression to define the order in which the results should be returned. This expression
+
+          is similar to a SQL ORDER BY clause. More details about it in the Sorting section of the doc.'
+        in: query
+        name: sort_by
+        schema:
+          type: string
       responses:
         '200':
-          description: Result rows
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ExecutionResults'
+                $ref: '#/components/schemas/models.ReadExecutionResultResponse'
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.Error400'
+          description: Bad Request
         '401':
-          $ref: '#/components/responses/Unauthorized'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.Error401'
+          description: Unauthorized
+        '402':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.Error402'
+          description: Payment Required
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.Error404'
+          description: Not Found
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.Error500'
+          description: Internal Server Error
+      summary: Given an execution ID, returns result of a an execution request
+      x-payment-info:
+        amount: null
+        description: $1.00 per MB of result data.
+        intent: session
+        method: tempo
+      x-required-scope: Read
       tags:
       - Execution
-  /execution/{execution_id}/cancel:
-    post:
-      summary: Cancel an in-flight execution
-      operationId: cancelExecution
+      operationId: getV1ExecutionByExecutionIdResults
+      x-operation-id-source: derived
+  /v1/execution/{execution_id}/results/csv:
+    get:
+      description: Given a query ID, returns the latest executed result of a query on Dune in CSV format
       parameters:
-      - $ref: '#/components/parameters/ExecutionId'
+      - description: API Key for the service
+        in: header
+        name: X-Dune-Api-Key
+        required: true
+        schema:
+          type: string
+      - description: Alternative to using the X-Dune-Api-Key header
+        in: query
+        name: api_key
+        schema:
+          type: string
+      - description: Execution ID
+        in: path
+        name: execution_id
+        required: true
+        schema:
+          type: string
+      - description: 'This enables returning a query result that was too large and only a partial result is
+
+          available. By default, allow_partial_results is set to false and a failed state is returned.'
+        in: query
+        name: allow_partial_results
+        schema:
+          type: boolean
+      - description: 'Specifies a comma-separated list of column names to return. If omitted, all columns are included.
+
+          Tip: use this to limit the result to specific columns, reducing datapoints cost of the call.'
+        in: query
+        name: columns
+        schema:
+          type: string
+      - description: 'Expression to filter out rows from the results to return. This expression is similar to
+
+          a SQL WHERE clause. More details about it in the Filtering section of the doc.
+
+          This parameter is incompatible with sample_count.'
+        in: query
+        name: filters
+        schema:
+          type: string
+      - description: To bypass the default max credits per request limit, set ignore_max_credits_per_request=true
+        in: query
+        name: ignore_max_credits_per_request
+        schema:
+          type: boolean
+      - description: 'Limit number of rows to return. This together with ''offset'' allows easy pagination through
+
+          results in an incremental and efficient way. This parameter is incompatible
+
+          with sampling (sample_count).'
+        in: query
+        name: limit
+        schema:
+          type: integer
+      - description: 'Offset row number to start (inclusive, first row means offset=0) returning results
+
+          from. This together with ''limit'' allows easy pagination through results in an
+
+          incremental and efficient way. This parameter is incompatible with sampling (sample_count).'
+        in: query
+        name: offset
+        schema:
+          type: integer
+      - description: 'Number of rows to return from the result by sampling the data. This is useful when you
+
+          want to get a uniform sample instead of the entire result. If the result has less
+
+          than the sample count, the entire result is returned. Note that this will return a
+
+          randomized sample, so not every call will return the same result. This parameter is
+
+          incompatible with `offset`, `limit`, and `filters` parameters.'
+        in: query
+        name: sample_count
+        schema:
+          type: integer
+      - description: 'Expression to define the order in which the results should be returned. This expression
+
+          is similar to a SQL ORDER BY clause. More details about it in the Sorting section of the doc.'
+        in: query
+        name: sort_by
+        schema:
+          type: string
       responses:
         '200':
-          description: Cancellation accepted
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: OK
+        '400':
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/models.Error400'
+          description: Bad Request
         '401':
-          $ref: '#/components/responses/Unauthorized'
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/models.Error401'
+          description: Unauthorized
+        '402':
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/models.Error402'
+          description: Payment Required
+        '404':
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/models.Error404'
+          description: Not Found
+        '500':
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/models.Error500'
+          description: Internal Server Error
+      summary: Get results of a query execution in CSV format
+      x-payment-info:
+        amount: null
+        description: $1.00 per MB of result data.
+        intent: session
+        method: tempo
+      x-required-scope: Read
       tags:
       - Execution
+      operationId: getV1ExecutionByExecutionIdResultsCsv
+      x-operation-id-source: derived
+  /v1/execution/{execution_id}/status:
+    get:
+      parameters:
+      - description: API Key for the service
+        in: header
+        name: X-Dune-Api-Key
+        required: true
+        schema:
+          type: string
+      - description: Alternative to using the X-Dune-Api-Key header
+        in: query
+        name: api_key
+        schema:
+          type: string
+      - description: Execution ID
+        in: path
+        name: execution_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.GetExecutionStatusResponse'
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.Error400'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.Error401'
+          description: Unauthorized
+        '402':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.Error402'
+          description: Payment Required
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.Error404'
+          description: Not Found
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.Error500'
+          description: Internal Server Error
+      summary: Check the status of an execution request
+      x-payment-info:
+        amount: null
+        description: Free status polling.
+        intent: session
+        method: tempo
+      x-required-scope: Read
+      tags:
+      - Execution
+      operationId: getV1ExecutionByExecutionIdStatus
+      x-operation-id-source: derived
 components:
   schemas:
-    ExecutionResults:
-      type: object
-      properties:
-        execution_id:
-          type: string
-        query_id:
-          type: integer
-        state:
-          type: string
-        result:
-          type: object
-          properties:
-            rows:
-              type: array
-              items:
-                type: object
-                additionalProperties: true
-            metadata:
-              type: object
-              additionalProperties: true
-    ExecutionStatus:
-      type: object
-      properties:
-        execution_id:
-          type: string
-        query_id:
-          type: integer
-        state:
-          type: string
-          enum:
-          - QUERY_STATE_PENDING
-          - QUERY_STATE_EXECUTING
-          - QUERY_STATE_COMPLETED
-          - QUERY_STATE_FAILED
-          - QUERY_STATE_CANCELLED
-        is_execution_finished:
-          type: boolean
-        submitted_at:
-          type: string
-          format: date-time
-        execution_started_at:
-          type: string
-          format: date-time
-        execution_ended_at:
-          type: string
-          format: date-time
-        execution_cost_credits:
-          type: integer
-    Error:
-      type: object
+    models.Error400:
       properties:
         error:
-          type: object
-          properties:
-            type:
-              type: string
-            message:
-              type: string
-            metadata:
-              type: object
-              additionalProperties: true
-  parameters:
-    ExecutionId:
-      in: path
-      name: execution_id
-      required: true
-      schema:
-        type: string
-      description: Execution identifier returned by /execute.
-  responses:
-    Unauthorized:
-      description: Invalid or missing API key
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-  securitySchemes:
-    DuneApiKey:
-      type: apiKey
-      in: header
-      name: X-Dune-API-Key
+          example: Bad Request
+          type: string
+      type: object
+    models.QueryResultData:
+      properties:
+        metadata:
+          allOf:
+          - $ref: '#/components/schemas/models.ExecutionResultMetadata'
+          description: 'Metadata about the execution of the query, including details like column names,
+
+            row counts, and execution times.'
+        rows:
+          description: 'A list of rows. A row is dictionary of key-value pairs returned by the query,
+
+            each pair corresponding to a column'
+          items:
+            $ref: '#/components/schemas/models.Row'
+          type: array
+        update_type:
+          description: The type of update operation from Trino (e.g., "SET SESSION")
+          type: string
+      type: object
+    models.ReadExecutionResultResponse:
+      properties:
+        cancelled_at:
+          description: Timestamp of when the query execution was cancelled, if applicable.
+          example: '2024-12-20T11:04:18.724658237Z'
+          type: string
+        error:
+          allOf:
+          - $ref: '#/components/schemas/models.QueryResultError'
+          description: In case the execution had an error, this object will contain the error details
+        execution_ended_at:
+          description: Timestamp of when the query execution ended.
+          example: '2024-12-20T11:04:18.724658237Z'
+          type: string
+        execution_id:
+          description: Unique identifier for the execution of the query.
+          example: 01HKZJ2683PHF9Q9PHHQ8FW4Q1
+          type: string
+        execution_started_at:
+          description: Timestamp of when the query execution started.
+          example: '2024-12-20T11:04:18.724658237Z'
+          type: string
+        expires_at:
+          description: Timestamp of when the query result expires.
+          example: '2024-12-20T11:04:18.724658237Z'
+          type: string
+        is_execution_finished:
+          description: Whether the state of the query execution is terminal. This can be used for polling purposes.
+          example: true
+          type: boolean
+        next_offset:
+          description: Offset that can be used to retrieve the next page of results.
+          example: 100
+          type: integer
+        next_uri:
+          description: URI that can be used to fetch the next page of results.
+          example: https://api.dune.com/api/v1/execution/01HKZJ2683PHF9Q9PHHQ8FW4Q1/results?offset=100&limit=100
+          type: string
+        query_id:
+          description: Unique identifier of the query.
+          example: 1234
+          type: integer
+        result:
+          allOf:
+          - $ref: '#/components/schemas/models.QueryResultData'
+          description: The object containing the results and metadata of the query execution
+        state:
+          description: The state of the query execution.
+          example: QUERY_STATE_COMPLETED
+          type: string
+        submitted_at:
+          description: Timestamp of when the query was submitted.
+          example: '2024-12-20T11:04:18.724658237Z'
+          type: string
+      type: object
+    models.GetExecutionStatusResponse:
+      properties:
+        cancelled_at:
+          description: Timestamp of when the query execution was cancelled, if applicable.
+          example: '2024-12-20T11:04:18.724658237Z'
+          type: string
+        error:
+          allOf:
+          - $ref: '#/components/schemas/models.QueryResultError'
+          description: In case the execution had an error, this object will contain the error details
+        execution_cost_credits:
+          description: Cost of the execution
+          type: number
+        execution_ended_at:
+          description: Timestamp of when the query execution ended.
+          example: '2024-12-20T11:04:18.724658237Z'
+          type: string
+        execution_id:
+          description: Unique identifier for the execution of the query and corresponding result.
+          example: 01HKZJ2683PHF9Q9PHHQ8FW4Q1
+          type: string
+        execution_started_at:
+          description: Timestamp of when the query execution started.
+          example: '2024-12-20T11:04:18.724658237Z'
+          type: string
+        expires_at:
+          description: Timestamp of when the query result expires.
+          example: '2024-12-20T11:04:18.724658237Z'
+          type: string
+        is_execution_finished:
+          description: Whether the state of the query execution is terminal. This can be used for polling purposes.
+          example: true
+          type: boolean
+        max_inflight_interactive_executions:
+          description: Number of interactive executions this customer can have running in parallel
+          example: 3
+          type: integer
+        max_inflight_interactive_reached:
+          description: 'Total number of interactive executions this user has submitted which are still in progress
+
+            only set to > 0 if the user has reached the limit of concurrent interactive executions'
+          example: 5
+          type: integer
+        query_id:
+          description: Unique identifier of the query.
+          example: 1234
+          type: integer
+        queue_position:
+          example: 1
+          type: integer
+        result_metadata:
+          allOf:
+          - $ref: '#/components/schemas/models.ExecutionResultMetadata'
+          description: Metadata about the execution of the query, including details like column names, row counts, and execution times.
+        state:
+          description: The state of the query execution.
+          example: QUERY_STATE_COMPLETED
+          type: string
+        submitted_at:
+          description: Timestamp of when the query was submitted.
+          example: '2024-12-20T11:04:18.724658237Z'
+          type: string
+      type: object
+    models.Error404:
+      properties:
+        error:
+          example: Object not found
+          type: string
+      type: object
+    models.Error402:
+      properties:
+        error:
+          example: This API request would exceed your configured limits per billing cycle.
+          type: string
+      type: object
+    models.QueryResultError:
+      properties:
+        message:
+          description: A descriptive message about the error.
+          example: 'Error: Line 1:1: mismatched input ''selecdt'''
+          type: string
+        metadata:
+          allOf:
+          - $ref: '#/components/schemas/models.SyntaxErrorMetadata'
+          description: Metadata about the syntax error that occurred, if applicable.
+        type:
+          description: The type of error that occurred.
+          example: syntax_error
+          type: string
+      type: object
+    models.Row:
+      additionalProperties: {}
+      type: object
+    models.CancelQueryExecutionResponse:
+      properties:
+        success:
+          type: boolean
+      type: object
+    models.ExecutionResultMetadata:
+      properties:
+        column_names:
+          description: Names of the columns in the result set.
+          example:
+          - Rank
+          - Project
+          - Volume
+          items:
+            type: string
+          type: array
+        column_types:
+          description: Types of the columns in the result set.
+          example:
+          - double
+          - varchar
+          - bigint
+          items:
+            type: string
+          type: array
+        datapoint_count:
+          description: 'Results cell count is used for billing/pricing plans
+
+            here we expose the these values to the user, so that they can track their costs'
+          example: 1000
+          type: integer
+        execution_time_millis:
+          description: Time in milliseconds that the query took to execute.
+          example: 1000
+          type: integer
+        pending_time_millis:
+          description: Time in milliseconds that the query was pending before execution.
+          example: 1000
+          type: integer
+        result_set_bytes:
+          description: "ResultSetBytes represents the raw data bytes returned by the SQL execution engine, it includes:\n + total nr of bytes used on 1 line with all the column names (the header of the result set)\n + total nr of bytes for all the row values (the result set of rows)\n\nit doesn't include overheads such as the presence of column names for every row in the JSON result type.\nit also doesn't include opmitizations such as compression"
+          example: 1000
+          type: integer
+        row_count:
+          description: Number of rows in the result set for the current page of results.
+          example: 10
+          type: integer
+        total_result_set_bytes:
+          description: Total number of bytes in the result set. This doesn't include the json representation overhead.
+          example: 10000
+          type: integer
+        total_row_count:
+          description: Number of rows in the result set for the entire result set.
+          example: 1000
+          type: integer
+      type: object
+    models.SyntaxErrorMetadata:
+      properties:
+        column:
+          description: The column number at which the syntax error occurred.
+          example: 73
+          type: integer
+        line:
+          description: The line number at which the syntax error occurred in the query.
+          example: 10
+          type: integer
+      type: object
+    models.Error401:
+      properties:
+        error:
+          example: Invalid API Key
+          type: string
+      type: object
+    models.Error500:
+      properties:
+        error:
+          example: Internal error
+          type: string
+      type: object
+x-service-info:
+  categories:
+  - data
+  - compute
+  docs:
+    apiReference: https://docs.dune.com/api-reference/overview/introduction
+    homepage: https://docs.dune.com

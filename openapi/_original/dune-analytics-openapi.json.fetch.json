@@ -1,0 +1,12 @@
+{
+ "url": "https://api.dune.com/openapi.json",
+ "final": "https://api.dune.com/openapi.json",
+ "status": 200,
+ "content_type": "application/json",
+ "bytes": 214500,
+ "sha256": "f82b25fe64b1f73e266d6eef5bec1b41f3757b6b351736563dec686e3e02b496",
+ "fetched_at": "2026-10-19",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "byte-identical",
+ "note": "re-archived: the provider's current document replaced a stale archive (roadmap#793); the old files are in openapi/_superseded/2026-10-19-stale"
+}

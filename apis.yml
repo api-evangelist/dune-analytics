@@ -156,6 +156,116 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/dune-analytics-query-api-openapi.yml
+- aid: dune-analytics:dune-analytics-contracts-api
+  name: Dune Analytics Contracts API
+  description: The Contracts API from Dune Analytics — 2 operation(s) for contracts.
+  humanURL: https://docs.dune.com/api-reference/overview/introduction
+  baseURL: https://api.dune.com/api/v1
+  tags:
+  - Contracts
+  properties:
+  - type: OpenAPI
+    url: openapi/dune-analytics-contracts-api-openapi.yml
+- aid: dune-analytics:dune-analytics-dashboards-api
+  name: Dune Analytics Dashboards API
+  description: The Dashboards API from Dune Analytics — 4 operation(s) for dashboards.
+  humanURL: https://docs.dune.com/api-reference/overview/introduction
+  baseURL: https://api.dune.com/api/v1
+  tags:
+  - Dashboards
+  properties:
+  - type: OpenAPI
+    url: openapi/dune-analytics-dashboards-api-openapi.yml
+- aid: dune-analytics:dune-analytics-datasets-api
+  name: Dune Analytics Datasets API
+  description: The Datasets API from Dune Analytics — 4 operation(s) for datasets.
+  humanURL: https://docs.dune.com/api-reference/overview/introduction
+  baseURL: https://api.dune.com/api/v1
+  tags:
+  - Datasets
+  properties:
+  - type: OpenAPI
+    url: openapi/dune-analytics-datasets-api-openapi.yml
+- aid: dune-analytics:dune-analytics-endpoints-api
+  name: Dune Analytics Endpoints API
+  description: The Endpoints API from Dune Analytics — 1 operation(s) for endpoints.
+  humanURL: https://docs.dune.com/api-reference/overview/introduction
+  baseURL: https://api.dune.com/api/v1
+  tags:
+  - Endpoints
+  properties:
+  - type: OpenAPI
+    url: openapi/dune-analytics-endpoints-api-openapi.yml
+- aid: dune-analytics:dune-analytics-materialized-views-api
+  name: Dune Analytics Materialized Views API
+  description: The Materialized Views API from Dune Analytics — 3 operation(s) for materialized views.
+  humanURL: https://docs.dune.com/api-reference/overview/introduction
+  baseURL: https://api.dune.com/api/v1
+  tags:
+  - Materialized Views
+  properties:
+  - type: OpenAPI
+    url: openapi/dune-analytics-materialized-views-api-openapi.yml
+- aid: dune-analytics:dune-analytics-pipelines-api
+  name: Dune Analytics Pipelines API
+  description: The Pipelines API from Dune Analytics — 2 operation(s) for pipelines.
+  humanURL: https://docs.dune.com/api-reference/overview/introduction
+  baseURL: https://api.dune.com/api/v1
+  tags:
+  - Pipelines
+  properties:
+  - type: OpenAPI
+    url: openapi/dune-analytics-pipelines-api-openapi.yml
+- aid: dune-analytics:dune-analytics-queries-api
+  name: Dune Analytics Queries API
+  description: The Queries API from Dune Analytics — 2 operation(s) for queries.
+  humanURL: https://docs.dune.com/api-reference/overview/introduction
+  baseURL: https://api.dune.com/api/v1
+  tags:
+  - Queries
+  properties:
+  - type: OpenAPI
+    url: openapi/dune-analytics-queries-api-openapi.yml
+- aid: dune-analytics:dune-analytics-sql-api
+  name: Dune Analytics Sql API
+  description: The Sql API from Dune Analytics — 1 operation(s) for sql.
+  humanURL: https://docs.dune.com/api-reference/overview/introduction
+  baseURL: https://api.dune.com/api/v1
+  tags:
+  - Sql
+  properties:
+  - type: OpenAPI
+    url: openapi/dune-analytics-sql-api-openapi.yml
+- aid: dune-analytics:dune-analytics-uploads-api
+  name: Dune Analytics Uploads API
+  description: The Uploads API from Dune Analytics — 5 operation(s) for uploads.
+  humanURL: https://docs.dune.com/api-reference/overview/introduction
+  baseURL: https://api.dune.com/api/v1
+  tags:
+  - Uploads
+  properties:
+  - type: OpenAPI
+    url: openapi/dune-analytics-uploads-api-openapi.yml
+- aid: dune-analytics:dune-analytics-usage-api
+  name: Dune Analytics Usage API
+  description: The Usage API from Dune Analytics — 1 operation(s) for usage.
+  humanURL: https://docs.dune.com/api-reference/overview/introduction
+  baseURL: https://api.dune.com/api/v1
+  tags:
+  - Usage
+  properties:
+  - type: OpenAPI
+    url: openapi/dune-analytics-usage-api-openapi.yml
+- aid: dune-analytics:dune-analytics-visualizations-api
+  name: Dune Analytics Visualizations API
+  description: The Visualizations API from Dune Analytics — 1 operation(s) for visualizations.
+  humanURL: https://docs.dune.com/api-reference/overview/introduction
+  baseURL: https://api.dune.com/api/v1
+  tags:
+  - Visualizations
+  properties:
+  - type: OpenAPI
+    url: openapi/dune-analytics-visualizations-api-openapi.yml
 common:
   - type: CapabilityMap
     url: capabilities/dune-analytics-capability-edges.yml

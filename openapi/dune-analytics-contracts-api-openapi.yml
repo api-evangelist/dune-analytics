@@ -1,0 +1,367 @@
+openapi: 3.2.0
+info:
+  contact: {}
+  description: Dune API
+  title: Dune Contracts API
+  version: '1.0'
+servers:
+- url: https://api.dune.com/api
+tags:
+- name: Contracts
+paths:
+  /v1/contracts/decode:
+    post:
+      description: Submit up to 100 contracts (with their ABIs) for decoding in one request. Each item is validated and queued independently; the response reports a per-item result matched by index. Successful items are queued as "pending" and can be tracked with GET /v1/contracts/submissions or at dune.com/workspace. Submissions are attributed to the user who created the API key. "upgrade" submissions and protected namespaces are always routed to manual review.
+      parameters:
+      - description: API Key for the service
+        in: header
+        name: X-Dune-Api-Key
+        required: true
+        schema:
+          type: string
+      - description: API Key, alternative to using the HTTP header X-Dune-Api-Key
+        in: query
+        name: api_key
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/models.SubmitContractsRequest'
+        description: Batch of contract submissions
+        required: true
+        x-originalParamName: body
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.SubmitContractsResponse'
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.Error400'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.Error401'
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.Error403'
+          description: Forbidden
+        '429':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.Error429'
+          description: Too Many Requests
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.Error500'
+          description: Internal Server Error
+      summary: Submit contracts for decoding
+      x-required-scope: Read/Write
+      tags:
+      - Contracts
+      operationId: postV1ContractsDecode
+      x-operation-id-source: derived
+  /v1/contracts/submissions:
+    get:
+      description: List the contract decoding submissions made by the authenticated account, newest first, with optional filters. Use this to track the status of submissions made via POST /v1/contracts/decode. Page with limit and the next_cursor returned by the previous response.
+      parameters:
+      - description: API Key for the service
+        in: header
+        name: X-Dune-Api-Key
+        required: true
+        schema:
+          type: string
+      - description: API Key, alternative to using the HTTP header X-Dune-Api-Key
+        in: query
+        name: api_key
+        schema:
+          type: string
+      - description: Filter by blockchain, e.g. ethereum
+        in: query
+        name: blockchain_name
+        schema:
+          type: string
+      - description: Filter by contract address
+        in: query
+        name: address
+        schema:
+          type: string
+      - description: Filter by project (namespace) name
+        in: query
+        name: project_name
+        schema:
+          type: string
+      - description: Filter by contract name
+        in: query
+        name: contract_name
+        schema:
+          type: string
+      - description: Filter by submission status
+        in: query
+        name: status
+        schema:
+          enum:
+          - pending
+          - approved
+          - rejected
+          - processed
+          - in_progress
+          - cancelled
+          - needs_manual_review
+          type: string
+      - description: Maximum number of submissions to return (default 50, max 250)
+        in: query
+        name: limit
+        schema:
+          type: integer
+      - description: Opaque cursor for pagination. Use the value provided on a previous response under next_cursor
+        in: query
+        name: cursor
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.ListContractSubmissionsResponse'
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.Error400'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.Error401'
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.Error403'
+          description: Forbidden
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/models.Error500'
+          description: Internal Server Error
+      summary: List contract submissions
+      x-required-scope: Read
+      tags:
+      - Contracts
+      operationId: getV1ContractsSubmissions
+      x-operation-id-source: derived
+components:
+  schemas:
+    models.Error429:
+      properties:
+        error:
+          example: Too Many Requests - Too many requests hit the API too quickly (rate limited).
+          type: string
+      type: object
+    models.Error400:
+      properties:
+        error:
+          example: Bad Request
+          type: string
+      type: object
+    models.ContractSubmissionInput:
+      properties:
+        abi:
+          description: ABI is the contract ABI, either as a JSON array or as a JSON-encoded string containing the array.
+          items:
+            type: object
+          type: array
+        address:
+          example: '0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984'
+          type: string
+        blockchain_name:
+          example: ethereum
+          type: string
+        contract_name:
+          example: UniswapToken
+          type: string
+        has_multiple_instances:
+          type: boolean
+        idempotency_key:
+          description: 'IdempotencyKey makes the item safe to retry. It is unique per account (at most 128
+
+            characters); resubmitting an item with a key you already used returns the existing
+
+            submission with replayed=true instead of creating a new one.'
+          example: abi-refresh-2026-09-09/0
+          type: string
+        is_created_by_factory:
+          type: boolean
+        is_manual_abi:
+          type: boolean
+        is_proxy:
+          type: boolean
+        old_contract_name:
+          type: string
+        old_project_name:
+          description: 'OldProjectName and OldContractName are required for "rename" submissions and name the
+
+            contract as it is decoded today; project_name and contract_name carry the new names.
+
+            "delete" submissions target project_name and contract_name directly.'
+          type: string
+        project_name:
+          example: uniswap
+          type: string
+        resubmission_reason:
+          type: string
+        submission_type:
+          description: SubmissionType defaults to "new". "upgrade" submissions always go to manual review.
+          enum:
+          - new
+          - upgrade
+          - rename
+          - delete
+          - other
+          example: new
+          type: string
+      required:
+      - abi
+      - address
+      - blockchain_name
+      - contract_name
+      - project_name
+      type: object
+    models.ContractSubmissionSummary:
+      properties:
+        address:
+          type: string
+        blockchain_name:
+          example: ethereum
+          type: string
+        comment:
+          type: string
+        contract_name:
+          type: string
+        created_at:
+          example: '2024-12-20T11:04:18.724658237Z'
+          type: string
+        id:
+          type: string
+        idempotency_key:
+          type: string
+        project_name:
+          type: string
+        status:
+          enum:
+          - pending
+          - approved
+          - rejected
+          - processed
+          - in_progress
+          - cancelled
+          - needs_manual_review
+          type: string
+        submission_type:
+          enum:
+          - new
+          - upgrade
+          - rename
+          - delete
+          - other
+          type: string
+        updated_at:
+          example: '2024-12-20T11:04:18.724658237Z'
+          type: string
+      type: object
+    models.Error403:
+      properties:
+        error:
+          example: Not allowed to execute query. Query is archived, unsaved or not enough permissions
+          type: string
+      type: object
+    models.ListContractSubmissionsResponse:
+      properties:
+        next_cursor:
+          description: NextCursor is set when more submissions exist; pass it as the cursor query parameter.
+          type: string
+        submissions:
+          items:
+            $ref: '#/components/schemas/models.ContractSubmissionSummary'
+          type: array
+        total:
+          type: integer
+      type: object
+    models.SubmitContractsResponse:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/models.ContractSubmissionResult'
+          type: array
+      type: object
+    models.SubmitContractsRequest:
+      properties:
+        submissions:
+          items:
+            $ref: '#/components/schemas/models.ContractSubmissionInput'
+          maxItems: 100
+          minItems: 1
+          type: array
+      required:
+      - submissions
+      type: object
+    models.ContractSubmissionResult:
+      properties:
+        error:
+          example: abi must be valid JSON
+          type: string
+        index:
+          type: integer
+        replayed:
+          description: 'Replayed is true when idempotency_key matched an earlier submission; submission_id then
+
+            refers to that submission and nothing new was created.'
+          type: boolean
+        status:
+          enum:
+          - pending
+          example: pending
+          type: string
+        submission_id:
+          example: 01J8Z2X4K7Q9R3T5V6W8Y0A1B2
+          type: string
+      type: object
+    models.Error401:
+      properties:
+        error:
+          example: Invalid API Key
+          type: string
+      type: object
+    models.Error500:
+      properties:
+        error:
+          example: Internal error
+          type: string
+      type: object
+x-service-info:
+  categories:
+  - data
+  - compute
+  docs:
+    apiReference: https://docs.dune.com/api-reference/overview/introduction
+    homepage: https://docs.dune.com

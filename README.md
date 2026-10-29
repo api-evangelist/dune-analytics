@@ -1,4 +1,4 @@
-# Dune Analytics (dune-analytics)
+# Dune Analytics
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,99 +66,130 @@
 
 Dune is a SQL-based crowdsourced blockchain analytics platform. The Dune API exposes Query Execution endpoints (run/poll/results), pre-built Trends endpoints, EVM Transactions API, Echo (real-time multichain wallet data via Sim), a Trino warehouse connector, and dbt integration. Pricing is credit-based: query executions, data exports, and writes consume credits against a plan-tier monthly allowance.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/dune-analytics/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/dune-analytics/refs/heads/main/apis.yml)
+**Areas:** Web3 · Analytics · SQL · Dashboards · Blockchain · Onchain · Multi-Chain · Ethereum
 
-## Tags
+## Dune Analytics on APIs.io
 
-- Web3
-- Analytics
-- SQL
-- Dashboards
-- Blockchain
-- Onchain
-- Multi-chain
+Everything profiled for Dune Analytics is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/dune-analytics/](https://apis.io/providers/dune-analytics/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (5)
 
-- **Created:** 2026-05-08
-- **Modified:** 2026-05-08
+- [Dune Query API](https://apis.io/apis/dune-analytics/query-api/) — REST endpoints for executing pre-saved Dune SQL queries, polling execution status, and paginating results. Powers programmatic access to community and…
+- [Dune Trends API](https://apis.io/apis/dune-analytics/trends-api/) — Curated, fixed endpoints over Dune's most popular trend datasets without writing SQL.
+- [Dune Echo (Sim) Multichain API](https://apis.io/apis/dune-analytics/echo-api/) — Real-time multichain wallet, token, and transaction data across EVM and SVM chains via Sim by Dune.
+- [Dune Analytics Execution API](https://apis.io/apis/dune-analytics/dune-analytics-execution-api/) — The Execution API from Dune Analytics — 3 operation(s) for execution.
+- [Dune Analytics Query API](https://apis.io/apis/dune-analytics/dune-analytics-query-api/) — The Query API from Dune Analytics — 2 operation(s) for query.
 
-## APIs
+### Published properties
 
-### Dune Query API
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-REST endpoints for executing pre-saved Dune SQL queries, polling execution status, and paginating results. Powers programmatic access to community and team-built analytics. Authentication via X-Dune-API-Key header.
+#### MCP servers (1)
 
-- **Human URL:** [https://docs.dune.com/api-reference/overview/introduction](https://docs.dune.com/api-reference/overview/introduction)
-- **Base URL:** `https://api.dune.com/api/v1`
+Model Context Protocol servers that expose the API to agents.
 
-#### Tags
+- [Moved to /providers/dune-analytics/](https://apis.io/servers/dune-analytics/dune-analytics/)
 
-- SQL
-- Query
-- Onchain
-- Analytics
+#### Agentic access (1)
 
-#### Properties
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- [Documentation](https://docs.dune.com/api-reference/overview/introduction)
-- [Pricing](https://dune.com/pricing)
-- [Postman Collection](collections/dune-analytics.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/dune-analytics.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Dune Analytics Agentic Access](https://apis.io/agentic-access/dune-analytics/dune-analytics-agentic-access/)
 
-### Dune Trends API
+#### Collections (3)
 
-Curated, fixed endpoints over Dune's most popular trend datasets without writing SQL.
+Postman and Open Collection request collections.
 
-- **Human URL:** [https://docs.dune.com/api-reference/trends/overview](https://docs.dune.com/api-reference/trends/overview)
-- **Base URL:** `https://api.dune.com/api/v1/trends`
+- [Dune Analytics Query API](https://apis.io/collections/dune-analytics/open-dune-analytics/)
+- [Dune Analytics Query Execution API](https://apis.io/collections/dune-analytics/open-dune-analytics-execution-api/)
+- [Dune Analytics Execution Query API](https://apis.io/collections/dune-analytics/open-dune-analytics-query-api/)
 
-#### Tags
+#### Security (3)
 
-- Trends
-- Pre-built
-- Onchain
+Authentication, trust centre, and vulnerability disclosure.
 
-#### Properties
+- [Dune Analytics Authentication](https://apis.io/security/dune-analytics/dune-analytics-authentication/)
+- [Dune Analytics Domain Security](https://apis.io/security/dune-analytics/dune-analytics-domain-security/)
+- [Dune Analytics Trust Center](https://apis.io/security/dune-analytics/dune-analytics-trust-center/)
 
-- [Documentation](https://docs.dune.com/api-reference/trends/overview)
-- [Postman Collection](collections/dune-analytics.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/dune-analytics.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### Plans and pricing (1)
 
-### Dune Echo (Sim) Multichain API
+Published plans, tiers and prices.
 
-Real-time multichain wallet, token, and transaction data across EVM and SVM chains via Sim by Dune.
+- [Dune Analytics Plans Pricing](https://apis.io/plans/dune-analytics/dune-analytics-plans-pricing/)
 
-- **Human URL:** [https://docs.sim.dune.com/](https://docs.sim.dune.com/)
-- **Base URL:** `https://api.sim.dune.com`
+#### Rate limits (1)
 
-#### Tags
+Published request limits.
 
-- Multichain
-- Wallets
-- Real-time
-- EVM
-- SVM
+- [Dune Analytics Rate Limits](https://apis.io/rate-limits/dune-analytics/dune-analytics-rate-limits/)
 
-#### Properties
+#### FinOps (1)
 
-- [Documentation](https://docs.sim.dune.com/)
-- [Postman Collection](collections/dune-analytics.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/dune-analytics.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+What the API costs to run, by operation.
 
-## Common Properties
+- [Dune Analytics Finops](https://apis.io/finops/dune-analytics/dune-analytics-finops/)
 
-- [LinkedIn](https://www.linkedin.com/company/dune-analytics)
-- [Portal](https://dune.com/)
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.dune.com/)
 - [Documentation](https://docs.dune.com/)
 - [Pricing](https://dune.com/pricing)
-- [Git Hub](https://github.com/duneanalytics)
-- [Plans](plans/dune-analytics-plans-pricing.yml)
-- [Rate Limits](rate-limits/dune-analytics-rate-limits.yml)
-- [Fin Ops](finops/dune-analytics-finops.yml)
-- [L L Ms Txt](https://docs.dune.com/llms.txt)
+- [Blog](https://dune.com/blog/feed)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 32.2** — thin · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 75.0 |
+| Contract quality | 46.0 |
+| Contract governance | 0.0 |
+| Operational transparency | 13.2 |
+| Developer ergonomics | 33.3 |
+| Access clarity | 26.3 |
+
+**Agent readiness 41.0** — agent-ready (gated down from agent-native)
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | documented (partial credit) |
+| MCP Server | verified |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | verified |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | verified |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | paginated |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 16.7** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/dune-analytics/](https://apis.io/providers/dune-analytics/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Dune Analytics: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/dune-analytics/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
